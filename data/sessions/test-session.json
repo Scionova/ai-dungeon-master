@@ -1,0 +1,379 @@
+{
+  "session_id": "test-session",
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "title": null,
+      "location": null,
+      "participants": [
+        "DM"
+      ],
+      "start_time": "2026-01-22T10:03:18.071812",
+      "end_time": "2026-01-22T10:03:18.091076",
+      "events": [
+        {
+          "timestamp": "2026-01-22T10:03:18.078883",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Attack roll: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "normal",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.080249",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Perception check: Advantage: 4 (kept) vs 1 (discarded)\nKept: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "advantage",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.089261",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Random table: Rolled 1d25: [21] = 21",
+          "metadata": {
+            "notation": "d25",
+            "roll_type": "normal",
+            "total": 21
+          }
+        }
+      ],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_2",
+      "title": "The Tavern",
+      "location": "Leaky Dragon Inn",
+      "participants": [],
+      "start_time": "2026-01-22T10:03:18.091099",
+      "end_time": "2026-01-22T10:03:18.092688",
+      "events": [],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_3",
+      "title": "Test Scene",
+      "location": "Test Location",
+      "participants": [],
+      "start_time": "2026-01-22T10:03:18.092695",
+      "end_time": "2026-01-22T10:03:18.092830",
+      "events": [],
+      "summary": "The heroes left the tavern.",
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_4",
+      "title": null,
+      "location": null,
+      "participants": [
+        "Guard",
+        "Player",
+        "DM"
+      ],
+      "start_time": "2026-01-22T10:03:18.094428",
+      "end_time": "2026-01-22T10:03:18.128939",
+      "events": [
+        {
+          "timestamp": "2026-01-22T10:03:18.094422",
+          "event_type": "npc_dialogue",
+          "actor": "Guard",
+          "content": "The guard says 'Halt!'",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.097373",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I enter the tavern",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.097621",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You enter the tavern. It's warm and crowded.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.099081",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I attack the goblin",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.099308",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Attack roll: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "normal",
+            "total": 4
+          }
+        }
+      ],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_5",
+      "title": "Tavern",
+      "location": "Inn",
+      "participants": [
+        "DM",
+        "Player"
+      ],
+      "start_time": "2026-01-22T10:03:18.128947",
+      "end_time": "2026-01-22T10:04:10.492127",
+      "events": [
+        {
+          "timestamp": "2026-01-22T10:03:18.129148",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You see a mysterious figure.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.129430",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I approach the figure",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.129648",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "The figure looks up.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.131533",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I enter the tavern",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.131834",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You enter the tavern.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:03:18.133637",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I attack",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.479800",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Attack roll: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "normal",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.481363",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Perception check: Advantage: 4 (kept) vs 1 (discarded)\nKept: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "advantage",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.490467",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Random table: Rolled 1d25: [21] = 21",
+          "metadata": {
+            "notation": "d25",
+            "roll_type": "normal",
+            "total": 21
+          }
+        }
+      ],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_6",
+      "title": "The Tavern",
+      "location": "Leaky Dragon Inn",
+      "participants": [],
+      "start_time": "2026-01-22T10:04:10.492144",
+      "end_time": "2026-01-22T10:04:10.493639",
+      "events": [],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_7",
+      "title": "Test Scene",
+      "location": "Test Location",
+      "participants": [],
+      "start_time": "2026-01-22T10:04:10.493645",
+      "end_time": "2026-01-22T10:04:10.493876",
+      "events": [],
+      "summary": "The heroes left the tavern.",
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_8",
+      "title": null,
+      "location": null,
+      "participants": [
+        "Guard",
+        "Player",
+        "DM"
+      ],
+      "start_time": "2026-01-22T10:04:10.495488",
+      "end_time": "2026-01-22T10:04:10.504085",
+      "events": [
+        {
+          "timestamp": "2026-01-22T10:04:10.495483",
+          "event_type": "npc_dialogue",
+          "actor": "Guard",
+          "content": "The guard says 'Halt!'",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.498742",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I enter the tavern",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.499104",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You enter the tavern. It's warm and crowded.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.501103",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I attack the goblin",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.501569",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Attack roll: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "normal",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.501884",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "The attack hits!",
+          "metadata": {}
+        }
+      ],
+      "summary": null,
+      "is_active": false
+    },
+    {
+      "scene_id": "scene_9",
+      "title": "Tavern",
+      "location": "Inn",
+      "participants": [
+        "DM",
+        "Player"
+      ],
+      "start_time": "2026-01-22T10:04:10.504094",
+      "end_time": null,
+      "events": [
+        {
+          "timestamp": "2026-01-22T10:04:10.504432",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You see a mysterious figure.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.504838",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I approach the figure",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.505191",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "The figure looks up.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.507433",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I enter the tavern",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.507838",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "You enter the tavern.",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.509864",
+          "event_type": "player_action",
+          "actor": "Player",
+          "content": "I attack",
+          "metadata": {}
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.510307",
+          "event_type": "dice_roll",
+          "actor": "DM",
+          "content": "Attack: Rolled 1d20: [4] = 4",
+          "metadata": {
+            "notation": "d20",
+            "roll_type": "normal",
+            "total": 4
+          }
+        },
+        {
+          "timestamp": "2026-01-22T10:04:10.510665",
+          "event_type": "narration",
+          "actor": "DM",
+          "content": "Hit!",
+          "metadata": {}
+        }
+      ],
+      "summary": null,
+      "is_active": true
+    }
+  ],
+  "current_scene_id": "scene_9"
+}

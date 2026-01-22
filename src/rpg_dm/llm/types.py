@@ -1,7 +1,7 @@
 """Type definitions for LLM interactions."""
 
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel, Field
 
@@ -19,7 +19,7 @@ class ChatMessage(BaseModel):
     """A chat message in the conversation."""
 
     role: ChatRole
-    content: str
+    content: Optional[str] = None
     name: Optional[str] = None
     tool_call_id: Optional[str] = None
     tool_calls: Optional[list[dict[str, Any]]] = None
@@ -32,12 +32,19 @@ class Tool(BaseModel):
     function: dict[str, Any]
 
 
+class FunctionCall(BaseModel):
+    """A function call within a tool call."""
+
+    name: str
+    arguments: dict[str, Any]
+
+
 class ToolCall(BaseModel):
     """A tool call made by the LLM."""
 
     id: str
     type: str
-    function: dict[str, Any]
+    function: FunctionCall
 
 
 class LLMResponse(BaseModel):
@@ -45,7 +52,7 @@ class LLMResponse(BaseModel):
 
     content: Optional[str] = None
     tool_calls: Optional[list[ToolCall]] = None
-    finish_reason: str
+    finish_reason: Optional[str] = None
     usage: dict[str, int] = Field(default_factory=dict)
 
 

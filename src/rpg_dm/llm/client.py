@@ -6,7 +6,15 @@ from typing import Any, Iterator, Optional
 from openai import OpenAI
 
 from ..config import Config, get_config
-from .types import ChatMessage, ChatRole, LLMResponse, StreamChunk, Tool, ToolCall
+from .types import (
+    ChatMessage,
+    ChatRole,
+    FunctionCall,
+    LLMResponse,
+    StreamChunk,
+    Tool,
+    ToolCall,
+)
 
 
 class LLMClient:
@@ -89,10 +97,12 @@ class LLMClient:
                 ToolCall(
                     id=tc.id,
                     type=tc.type,
-                    function={
-                        "name": tc.function.name,
-                        "arguments": tc.function.arguments,
-                    },
+                    function=FunctionCall(
+                        name=tc.function.name,
+                        arguments=json.loads(tc.function.arguments)
+                        if isinstance(tc.function.arguments, str)
+                        else tc.function.arguments,
+                    ),
                 )
                 for tc in message.tool_calls
             ]
@@ -216,7 +226,12 @@ class LLMClient:
                         ToolCall(
                             id=tc["id"],
                             type=tc["type"],
-                            function=tc["function"],
+                            function=FunctionCall(
+                                name=tc["function"]["name"],
+                                arguments=json.loads(tc["function"]["arguments"])
+                                if tc["function"]["arguments"]
+                                else {},
+                            ),
                         )
                         for tc in tool_call_accumulator.values()
                     ]
