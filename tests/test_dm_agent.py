@@ -353,3 +353,84 @@ class TestDMAgentRespondStream:
         assert "Rolling..." in full_result
         assert "roll_dice" in full_result
         assert "Hit!" in full_result
+
+
+class TestDiceRollNarration:
+    """Test that DM narrates outcomes after rolling dice."""
+
+    def test_dice_roll_followed_by_narration(self, dm_agent, mock_llm_client, session_log):
+        """Test that dice roll is immediately followed by narration in session log.
+
+        Expected session log pattern:
+        1. player_action: "I try to pick the lock"
+        2. dice_roll: "Lockpicking check: Rolled 1d20: [15] = 15"
+        3. narration: "Your deft fingers work the tumblers expertly..."
+
+        NOT:
+        1. player_action: "I try to pick the lock"
+        2. dice_roll: "Lockpicking check: Rolled 1d20: [6] = 6"
+        3. [gap - player has to ask what happened]
+        """
+        # First response: tool call for dice roll
+        tool_call = ToolCall(
+            id="call_1",
+            type="function",
+            function=FunctionCall(
+                name="roll_dice",
+                arguments={"notation": "1d20", "purpose": "Lockpicking check"},
+            ),
+        )
+        mock_response_1 = LLMResponse(
+            content="Let me check if you can pick that lock...",
+            tool_calls=[tool_call],
+            model="test-model",
+            usage={"prompt_tokens": 100, "completion_tokens": 50},
+        )
+
+        # Second response: narration based on roll result
+        mock_response_2 = LLMResponse(
+            content="Your fingers fumble with the lockpicks, unable to find the right angle. The lock remains stubbornly shut.",
+            tool_calls=None,
+            model="test-model",
+            usage={"prompt_tokens": 120, "completion_tokens": 30},
+        )
+
+        mock_llm_client.chat.side_effect = [mock_response_1, mock_response_2]
+
+        # Player takes action requiring a dice roll
+        response = dm_agent.respond("I try to pick the lock")
+
+        # Get all events from session log
+        events = session_log.get_all_events()
+
+        # Find indices of relevant events
+        player_action_idx = None
+        dice_roll_idx = None
+        narration_idx = None
+
+        for i, event in enumerate(events):
+            if event.event_type == "player_action" and "pick the lock" in event.content:
+                player_action_idx = i
+            elif event.event_type == "dice_roll" and "Lockpicking" in event.content:
+                dice_roll_idx = i
+            elif event.event_type == "narration" and "fingers" in event.content:
+                narration_idx = i
+
+        # Verify all three event types exist
+        assert player_action_idx is not None, "Player action not found in session log"
+        assert dice_roll_idx is not None, "Dice roll not found in session log"
+        assert narration_idx is not None, "Narration not found in session log after dice roll"
+
+        # Verify they occur in the correct sequence
+        assert player_action_idx < dice_roll_idx, "Player action should come before dice roll"
+        assert dice_roll_idx < narration_idx, "Dice roll should come before narration"
+
+        # Verify they are consecutive (no gap between dice roll and narration)
+        assert narration_idx == dice_roll_idx + 1, (
+            f"Narration should immediately follow dice roll. "
+            f"Gap of {narration_idx - dice_roll_idx - 1} events detected."
+        )
+
+        # Verify the response contains the narration
+        assert "fingers" in response.lower()
+        assert "lock" in response.lower()

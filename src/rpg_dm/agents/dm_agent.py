@@ -57,6 +57,10 @@ When narrating:
 
 When using tools:
 - Roll dice for NPCs and environmental effects
+- AFTER rolling dice, ALWAYS narrate what happens based on the result:
+  * Low rolls (1-7): describe failure, setbacks, or complications
+  * Mid rolls (8-14): describe partial success or mixed outcomes
+  * High rolls (15+): describe clear success and positive outcomes
 - Start new scenes when the location or situation changes significantly
 - End scenes with a brief summary when transitioning
 - Log important events and state changes
@@ -80,7 +84,7 @@ Be creative, fair, and engaging. Focus on collaborative storytelling."""
                 type="function",
                 function={
                     "name": "roll_dice",
-                    "description": "Roll dice using standard notation. Supports d20, 2d6+3, 4d6kh3 (keep highest), advantage/disadvantage, and arbitrary dice sizes like d3, d7, d25, d100.",
+                    "description": "Roll dice using standard notation. After rolling, you MUST narrate what happens based on the result. Supports d20, 2d6+3, 4d6kh3 (keep highest), advantage/disadvantage, and arbitrary dice sizes like d3, d7, d25, d100.",
                     "parameters": {
                         "type": "object",
                         "properties": {
