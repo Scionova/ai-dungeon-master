@@ -100,6 +100,40 @@
   - Keyboard interrupt handling (Ctrl+C)
   - Session list display
 
+#### Campaign Tracking System (NEW)
+- **Campaign Models** (`src/rpg_dm/campaign/models.py`)
+  - `Campaign`: Multi-session container with NPCs, locations, plot threads
+  - `NPCProfile`: Persistent NPCs with knowledge, relationships, tracking
+  - `Location`: Places with events, NPCs present, visit history
+  - `PlotThread`: Story arcs with status, updates, related entities
+  - `PlotUpdate`: Timestamped updates to plot threads
+  - All models with JSON serialization (to_dict/from_dict)
+
+- **Campaign Manager** (`src/rpg_dm/campaign/campaign_manager.py`)
+  - Create campaigns from scratch or templates
+  - JSON template system for predefined campaigns
+  - Load/save campaign state
+  - List campaigns and templates
+  - CRUD operations for NPCs, locations, plot threads
+
+- **Template System** (`data/campaign_templates/`)
+  - Example campaign: "The Lost Crown of Eldoria"
+    - 5 predefined NPCs with knowledge and relationships
+    - 5 locations with notable events
+    - 3 active plot threads
+  - Blank template for custom campaigns
+  - Template README with usage guide
+
+- **DM Agent Integration**
+  - 4 new campaign tools:
+    - `track_npc`: Track/update NPCs with knowledge, role, location
+    - `track_location`: Track/update locations with events
+    - `add_plot_thread`: Create new story arcs
+    - `update_plot_thread`: Update plot status and developments
+  - Campaign context automatically included in DM prompts
+  - DM receives: campaign goal, active plots, known NPCs, locations
+  - Autonomous world state tracking during gameplay
+
 #### Testing
 - **Test Infrastructure**
   - Pytest configuration
@@ -110,7 +144,12 @@
 
 ### 🔄 In Progress
 
-None - ready for next feature.
+#### Campaign CLI Integration
+- CLI menu updates (New Campaign, Continue Campaign, Quick Game)
+- Campaign creation flow with template selection
+- Campaign loading and session linking
+- `/campaign` command for overview
+- Status: Data layer and DM integration complete, CLI pending
 
 ### 📋 Planned (Near-term)
 

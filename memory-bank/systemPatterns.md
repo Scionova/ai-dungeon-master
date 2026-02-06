@@ -11,17 +11,46 @@
 ┌────────────────────────▼────────────────────────────────┐
 │                    DM Agent                             │
 │  (dm_agent.py - LLM with Tool Calling)                  │
-└─────┬──────────────┬──────────────┬─────────────────────┘
-      │              │              │
-┌─────▼──────┐  ┌────▼───────┐  ┌───▼──────────┐
-│  Memory    │  │ Game State │  │  Utilities   │
-│  System    │  │            │  │  (Dice)      │
-└────────────┘  └────────────┘  └──────────────┘
+└─────┬──────────────┬──────────────┬──────────────┬──────┘
+      │              │              │              │
+┌─────▼──────┐  ┌────▼───────┐  ┌───▼──────┐  ┌───▼────────┐
+│  Memory    │  │ Game State │  │ Campaign │  │ Utilities  │
+│  System    │  │            │  │ Manager  │  │  (Dice)    │
+└────────────┘  └────────────┘  └──────────┘  └────────────┘
 ```
 
 ## Core Design Patterns
 
-### 1. Hierarchical Memory Structure
+### 1. Campaign Hierarchy (NEW)
+
+**Pattern**: Multi-session persistence with world state tracking
+
+```
+Campaign (Multi-session container)
+  ├── NPCs (Persistent characters)
+  │   ├── Knowledge (what they know)
+  │   ├── Relationships (who they know)
+  │   └── Location tracking
+  ├── Locations (Places with history)
+  │   ├── Notable events
+  │   └── NPCs present
+  ├── Plot Threads (Story arcs)
+  │   ├── Status (active/completed/abandoned)
+  │   └── Updates over time
+  └── Sessions (Chronological list)
+      └── Individual game sessions
+```
+
+**Benefits**:
+- Multi-session continuity
+- World consistency across sessions
+- NPC knowledge tracking (no omniscient NPCs)
+- Plot progression tracking
+- Template system for pre-built campaigns
+
+**Implementation**: `src/rpg_dm/campaign/`
+
+### 2. Hierarchical Memory Structure
 
 **Pattern**: Three-level event hierarchy provides natural organization
 
@@ -45,12 +74,47 @@ Session (Full play session)
 
 **Implementation**: `src/rpg_dm/memory/session_log.py`
 
-### 2. Agent Tool Calling Pattern
+### 3. Campaign Template System (NEW)
+
+**Pattern**: JSON-based campaign initialization
+
+```json
+{
+  "name": "Campaign Name",
+  "setting": "World description",
+  "overarching_goal": "Main quest",
+  "npcs": {
+    "NPC Name": {
+      "description": "...",
+      "knowledge": ["fact1", "fact2"],
+      "relationships": {"Other NPC": "relationship"}
+    }
+  },
+  "locations": {...},
+  "plot_threads": [...]
+}
+```
+
+**Benefits**:
+- Pre-built worlds ready to play
+- Reusable campaign templates
+- Consistent starting state
+- Easy sharing of campaigns
+
+**Implementation**: `src/rpg_dm/campaign/campaign_manager.py`
+
+### 4. Agent Tool Calling Pattern
 
 **Pattern**: DM agent autonomously calls structured tools
 
 ```python
-# DM decides action needs dice roll
+**Campaign Tools** (when campaign_manager available):
+- `track_npc`: Persist NPC data (knowledge, role, location)
+- `track_location`: Record location events and visitors
+- `add_plot_thread`: Create new story arcs
+- `update_plot_thread`: Track plot developments
+
+### 5decides action needs dice roll
 tools = [
     {
         "type": "function",
@@ -107,19 +171,20 @@ session_log.log_event(
 
 **Benefits**:
 - Complete audit trail
-- Easy to replay/debug
-- Supports undo/rollback (future)
-- Enables analytics
+- Ea6. Smart Context Building with Campaign Data (UPDATED)
 
-**Implementation**: `src/rpg_dm/memory/session_log.py`
-
-### 4. Smart Context Building
-
-**Pattern**: Provide relevant context within token limits
+**Pattern**: Provide relevant context including campaign state
 
 ```python
 def build_context(recent_scenes=2):
     context = []
+    
+    # Campaign context (if available)
+    if campaign:
+        context += campaign.overarching_goal
+        context += active_plot_threads
+        context += known_npcs (with knowledge)
+        context += known_locations (with events)
 
     # Full events from current scene
     context += current_scene.events
@@ -136,8 +201,15 @@ def build_context(recent_scenes=2):
 ```
 
 **Benefits**:
+- DM aware of long-term campaign state
+- NPCs have limited, tracked knowledge
+- World consistency across sessions
 - Stay within token limits
 - Prioritize recent, relevant information
+
+**Implementation**: `src/rpg_dm/agents/dm_agent.py`, `src/rpg_dm/memory/session_log.py`
+
+### 7oritize recent, relevant information
 - Maintain long-term continuity
 - Efficient token usage
 
@@ -158,7 +230,7 @@ def handle_command(user_input: str) -> tuple[CommandResult, str]:
     if user_input.startswith("/exit"):
         return CommandResult.EXIT_TO_MENU, ""
     elif user_input.startswith("/quit"):
-        return CommandResult.QUIT_APP, ""
+    8   return CommandResult.QUIT_APP, ""
     # ... other commands
     else:
         return CommandResult.REGULAR_ACTION, user_input
@@ -183,7 +255,7 @@ for chunk in dm_agent.respond_streaming(player_action):
 print()  # Newline after complete response
 ```
 
-**Benefits**:
+**Be9efits**:
 - Immediate feedback
 - Creates suspense
 - Better perceived performance
