@@ -1,7 +1,8 @@
-# Personal context (each developer's work-in-progress)
-# Keep README.md (documentation), ignore work files
-personal-context/activeContext.md
-personal-context/tasks/
+# Personal context (each developer's work-in-progress, git-ignored)
+# Templates and workflow docs are shared — everything else is personal
+personal-context/
+!personal-context/.templates/
+!personal-context/README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

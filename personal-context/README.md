@@ -1,58 +1,42 @@
 # Personal Context
 
-This folder contains **your personal work-in-progress files** and is **git-ignored** to prevent merge conflicts when multiple developers work on the same repository.
+This folder is **git-ignored** — each developer maintains their own copy. Only `.templates/` and `README.md` are committed.
 
-## What Goes Here
+## Folder Structure
 
-### `activeContext.md` (required)
-Your current work focus, recent changes, and immediate next steps. This is your personal "what am I working on right now" file that gets updated frequently as you work.
+- `activeContext.md` — your current work focus, recent changes, immediate next steps
+- `tasks/_index.md` — master list of all your tasks with statuses
+- `tasks/TASK###-name.md` — individual task files with thought process and progress
 
-### `tasks/` folder (required)
-Your personal task tracking system:
-- `_index.md` - Master list of all your tasks with statuses
-- `TASK###-name.md` - Individual task files with thought process, implementation plan, and progress
+If files are missing, copy from `.templates/`:
+- `.templates/activeContext.md` → `activeContext.md`
+- `.templates/tasks/_index.md` → `tasks/_index.md`
+- `.templates/tasks/TASK000-template.md` → use as base for each new task file
 
-## Why Is This Git-Ignored?
+## Personal vs Shared
 
-These files change constantly as you work. If committed to git:
-- ❌ Frequent merge conflicts between developers
-- ❌ Noise in git history (every work session = commits)
-- ❌ Privacy issues (personal notes, experiments)
+| File | Audience | What goes here |
+|------|----------|----------------|
+| `memory-bank/progress.md` | Whole team | Completed work, achievements |
+| `activeContext.md` | You only | Current focus, in-progress work |
+| `tasks/` | You only | Full task history and thought process |
 
-With git-ignore:
-- ✅ Each developer maintains their own context
-- ✅ No merge conflicts
-- ✅ Clean git history
-- ✅ Personal workspace freedom
+---
 
-## What About Team Coordination?
+## Commands
 
-**Shared progress tracking** happens in `memory-bank/progress.md` (committed to git):
-- Update `progress.md` when you **complete** work
-- Record achievements, new features, bug fixes
-- This is the team's source of truth for "what's done"
+**`add task` / `create task`** — create task file from template, document thought process, update `_index.md`.
 
-**Your personal files** track ongoing work:
-- Update `activeContext.md` **as you work**
-- Track experiments, decisions, open questions
-- This is your personal workspace
+**`update task [ID]`** — add progress log entry, update subtask statuses, sync `_index.md`.
 
-## First Time Setup
+**`show tasks [filter]`** — filters: `all`, `active`, `pending`, `completed`, `blocked`, `recent`, `tag:[name]`.
 
-**Good news**: Files are auto-generated!
+---
 
-When you start working, the AI assistant will automatically:
-1. Check if `activeContext.md` exists - if not, creates it from template
-2. Check if `tasks/_index.md` exists - if not, creates it from template
+## Task Completion Policy
 
-You don't need to do anything manually. Just start working, and the AI will ensure your personal workspace is ready.
+Never mark a task Completed until the user explicitly confirms it. When confirmed:
 
-If you want to manually create them:
-- Copy templates from `.github/copilot-instructions.md`
-- Or just let the AI create them on your first session
-
-- **Update often**: Keep `activeContext.md` current as you work
-- **Be specific**: Detailed notes help after context switches
-- **Link to code**: Reference specific files and line numbers
-- **Track decisions**: Document why you chose specific approaches
-- **Archive completed tasks**: Move to "Completed" section but keep the history
+1. Move task to "Completed" in `tasks/_index.md`
+2. Update `activeContext.md`
+3. Update `memory-bank/progress.md` with the achievement — this is the shared team record, do not reference personal-context files here
